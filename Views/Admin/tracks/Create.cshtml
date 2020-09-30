@@ -1,0 +1,131 @@
+﻿@using Nexus_Service_Marketing_System.Connection;
+
+@model Nexus_Service_Marketing_System.Models.tracks
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    ModelsContext db = new ModelsContext();
+
+    var PlansOrdersId = ViewBag.PlansOrdersId;
+    var temp = db.plans_orders.Find(PlansOrdersId);
+    bool checkLocal = false;
+    bool checkSTD = false;
+    bool checkMsg = false;
+
+    if (temp != null)
+    {
+        if (temp.Plans_orders_plan_price_local > 0)
+        {
+            checkLocal = true;
+        }
+
+        if (temp.Plans_orders_plan_price_std > 0)
+        {
+            checkSTD = true;
+        }
+
+        if (temp.Plans_orders_plan_price_msg > 0)
+        {
+            checkMsg = true;
+        }
+    }
+}
+
+<h1>Create</h1>
+
+<h4>Tracks</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <form asp-controller="Tracks" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="Track_plans_orders_id" class="control-label"></label></td>
+                    <td>
+                        @if (PlansOrdersId != null)
+                        {
+                            <input asp-for="Track_plans_orders_id" value="@PlansOrdersId" class="form-control" />
+                        }
+                        else
+                        {
+                            <input asp-for="Track_plans_orders_id" class="form-control" />
+                        }
+                    </td>
+                    <td><span asp-validation-for="Track_plans_orders_id" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label class="control-label">Period</label></td>
+                    <td><input type="month" name="txtPeriod" /></td>
+                    <td></td>
+                </tr>
+
+                @if (checkLocal)
+                {
+                    <tr>
+                        <td><label asp-for="Track_time_used_local" class="control-label"></label></td>
+                        <td><input asp-for="Track_time_used_local" class="form-control" /></td>
+                        <td><span asp-validation-for="Track_time_used_local" class="text-danger"></span></td>
+                    </tr>
+                }
+
+                @if (checkSTD)
+                {
+                    <tr>
+                        <td><label asp-for="Track_time_used_std" class="control-label"></label></td>
+                        <td><input asp-for="Track_time_used_std" class="form-control" /></td>
+                        <td><span asp-validation-for="Track_time_used_std" class="text-danger"></span></td>
+                    </tr>
+                }
+
+                @if (checkMsg)
+                {
+                    <tr>
+                        <td><label asp-for="Track_time_used_msg" class="control-label"></label></td>
+                        <td><input asp-for="Track_time_used_msg" class="form-control" /></td>
+                        <td><span asp-validation-for="Track_time_used_msg" class="text-danger"></span></td>
+                    </tr>
+                }
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Create" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-danger" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to create this track?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Tracks" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

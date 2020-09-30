@@ -1,0 +1,89 @@
+﻿@model Nexus_Service_Marketing_System.Models.orders
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    var role = Context.Session.GetString("accRole");
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Orders</h4>
+
+    <hr />
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Quantity</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (ViewBag.Equipments != null)
+            {
+                @foreach (var item in ViewBag.Equipments)
+                {
+                    <tr>
+                        <td>
+                            @item.Equipments_orders_equipment_name
+                        </td>
+                        <td>
+                            $@string.Format("{0:#,0.00}", item.Equipments_orders_equipment_price)
+                        </td>
+                        <td>
+                            @item.Equipments_orders_quantity
+                        </td>
+                        <td>
+                            $@string.Format("{0:#,0.00}", item.Equipments_orders_sub_total)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            }
+
+            @if (ViewBag.Plans != null)
+            {
+                @foreach (var item in ViewBag.Plans)
+                {
+                    <tr>
+                        <td>
+                            @item.Plans_orders_plan_name
+                        </td>
+                        <td>
+                            $@string.Format("{0:#,0.00}", item.Plans_orders_plan_price)
+                        </td>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            $@string.Format("{0:#,0.00}", item.Plans_orders_plan_price)
+                        </td>
+                        <td>
+                            <a asp-controller="PlansOrders" asp-action="Details" asp-route-id="@item.Plans_orders_id"><button class="btn-outline-info">Details</button></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+            <tr>
+                <td colspan="2">Total</td>
+                <td>@ViewBag.Count</td>
+                <td>$$@string.Format("{0:#,0.00}", ViewBag.Total)</td>
+                <td></td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<div>    
+    <a asp-controller="Orders" asp-action="Index"><button class="btn-outline-light">Back to List</button></a>
+</div>

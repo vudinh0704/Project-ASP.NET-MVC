@@ -1,0 +1,40 @@
+﻿@model Nexus_Service_Marketing_System.Models.connections
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Connections</h4>
+
+    <hr />
+
+    <dl class="row text-light">
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Connection_id)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Connection_id)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Connection_name)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Connection_name)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Connection_description)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Connection_description)
+        </dd>
+    </dl>
+</div>
+
+<div>    
+    <a asp-controller="Connections" asp-action="Update" asp-route-id="@Model.Connection_id"><button class="btn-outline-primary">Edit</button></a>   
+    <a asp-controller="Connections" asp-action="Index"><button class="btn-outline-light">Back to List</button></a>
+</div>

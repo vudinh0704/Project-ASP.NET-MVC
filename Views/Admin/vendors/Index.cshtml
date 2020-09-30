@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.vendors>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Index</h1>
+
+<h4>Vendors</h4>
+
+<hr />
+
+<p>
+    <a asp-controller="Vendors" asp-action="Create"><i class="material-icons" style="padding-right: 10px">playlist_add</i>Create New</a>
+</p>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    <input type="text" name="txtVendorName" placeholder="Enter vendor name..." />
+    <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+}
+
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vendor_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vendor_address)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendor_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendor_address)
+                </td>
+                <td>
+                    <a asp-controller="Vendors" asp-action="Update" asp-route-id="@item.Vendor_id"><button class="btn-outline-primary">Edit</button></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <h3 class="text-light">@ViewBag.Msg</h3>
+</div>

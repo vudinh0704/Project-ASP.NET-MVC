@@ -1,0 +1,111 @@
+﻿@model Nexus_Service_Marketing_System.Models.orders
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var orderStatus = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Pending", Value = "Pending"},
+        new SelectListItem { Text = "Complete", Value = "Complete"},
+        new SelectListItem { Text = "Incomplete", Value = "Incomplete"}
+    };
+
+    var orderFeasibility = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Pending", Value = "Pending"},
+        new SelectListItem { Text = "Feasible", Value = "Feasible"},
+        new SelectListItem { Text = "Infeasible", Value = "Infeasible"}
+    };
+}
+
+<h1>Update</h1>
+
+<h4>Orders</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <form asp-controller="Orders" asp-action="Update">
+
+            @if (Model.Order_status.Equals("Complete"))
+            {
+                <h5 class="text-light">You can only customize the order feasibility only if order status is not complete!</h5>
+            }
+
+
+            @if (!Model.Order_feasibility.Equals("Feasible"))
+            {
+                <h5 class="text-light">You can only customize the order status after order feasibily is feasible!</h5>
+            }
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Order_id" class="form-control" value="@Model.Order_id" hidden="hidden" />
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="Order_feasibility" class="control-label"></label></td>
+                    <td>
+                        @if (!Model.Order_status.Equals("Complete"))
+                        {
+                            <select asp-for="Order_feasibility" asp-items="@orderFeasibility"></select>
+                        }
+                        else
+                        {
+                            <input asp-for="Order_feasibility" value="@Model.Order_feasibility" class="text-dark" readonly />
+                        }
+                    </td>
+                    <td><span asp-validation-for="Order_feasibility" class="text-danger"></span></td>
+                </tr>
+
+                <tr>
+                    <td><label asp-for="Order_status" class="control-label"></label></td>
+                    <td>
+                        @if (Model.Order_feasibility.Equals("Feasible"))
+                        {
+                            <select asp-for="Order_status" asp-items="@orderStatus"></select>
+                        }
+                        else
+                        {
+                            <input asp-for="Order_status" value="@Model.Order_status" class="text-dark" readonly />
+                        }
+                    </td>
+                    <td><span asp-validation-for="Order_status" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Save" class="btn btn-primary" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to update this order's information?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Orders" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+
+    <!-- ======= Our Cart Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Cart</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li>Cart</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Cart Section -->
+
+    <!-- ======= Cart Body Section ======= -->
+    @if (ViewBag.Count == 0)
+    {
+        <div class="container d-flex justify-content-center align-items-center" style="height: 500px">
+            <p>Cart is now empty!</p>
+        </div>
+    }
+    else
+    {
+        <section>
+            <div class="container">
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
+                            <th>Product Quantity</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (ViewBag.cartEquipment != null)
+                        {
+                            @for (var i = 0; i < ViewBag.cartEquipment.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @ViewBag.cartEquipment[i].Equipments_orders_equipment_name
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.cartEquipment[i].Equipments_orders_equipment_price)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Cart" asp-action="QuantityMinus" asp-route-id="@i"><button class="btn-info" style="text-align: center; width: 25px"> - </button></a>
+                                        <input type="text" value="@ViewBag.cartEquipment[i].Equipments_orders_quantity" style="text-align: center; width: 50px" />
+                                        <a asp-controller="Cart" asp-action="QuantityPlus" asp-route-id="@i"><button class="btn-info" style="text-align: center; width: 25px"> + </button></a>
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.cartEquipment[i].Equipments_orders_sub_total)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Web" asp-action="RemoveEquipmentFromCart" asp-route-id="@i"><i class="bx bx-trash bx-flashing-hover"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        @if (ViewBag.cartPlan != null)
+                        {
+                            @for (var i = 0; i < ViewBag.cartPlan.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @ViewBag.cartPlan[i].Plans_orders_plan_name
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.cartPlan[i].Plans_orders_plan_price)
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.cartPlan[i].Plans_orders_plan_price)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Web" asp-action="RemovePlanFromCart" asp-route-id="@i"><i class="bx bx-trash bx-flashing-hover"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        <tr>
+                            <td colspan="2">Total</td>
+                            <td>@ViewBag.Count</td>
+                            <td>$@string.Format("{0:#,0.00}", ViewBag.Total)</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4"></td>
+                            <td>
+                                <a asp-controller="Web" asp-action="OrderCreate"><input type="submit" name="btnOrder" value="Order" class="btn-dark" /></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </section>
+    }<!-- End Cart Body Section -->
+
+</main>

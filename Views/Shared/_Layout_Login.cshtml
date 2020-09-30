@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Nexus_Service_Marketing_System.Models;
+@using Nexus_Service_Marketing_System.Responsitory;
+
+@{
+    var cartEquipment = SessionHelper.GetObjectAsJson<List<equipments_orders>>(Context.Session, "cartEquipment");
+    var cartPlan = SessionHelper.GetObjectAsJson<List<plans_orders>>(Context.Session, "cartPlan");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Index - Nexus Service</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/assets/img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="~/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/assets/css/web/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container">
+
+            <div class="logo float-left">
+                <h1 class="text-light"><a asp-controller="Web" asp-action="Index"><span>Nexus Service</span></a></h1>
+            </div>
+
+            <nav class="nav-menu float-right d-none d-lg-block">
+                <ul>
+                    <li class="active"><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Web" asp-action="AboutUs">About Us</a></li>
+                    <li><a asp-controller="Web" asp-action="Services">Services</a></li>
+                    <li class="drop-down">
+                        <a href="#">Products</a>
+                        <ul>
+                            <li><a asp-controller="Web" asp-action="Equipments">Equipments</a></li>
+                            <li><a asp-controller="Web" asp-action="Plans">Plans</a></li>
+                        </ul>
+                    </li>                    
+                    <li><a asp-controller="Web" asp-action="ContactUs">Contact Us</a></li>
+
+                    <li>
+                        <a asp-controller="Web" asp-action="Cart">
+                            <i class="bx bx-cart"></i>
+
+                            @if (cartEquipment != null && cartPlan != null)
+                            {
+                                var count = cartEquipment.Count + cartPlan.Count;
+
+                                if (count > 0)
+                                {
+                                    <span>@count</span>
+                                }
+                            }
+                            else if (cartEquipment != null)
+                            {
+                                if (cartEquipment.Count > 0)
+                                {
+                                    <span>@cartEquipment.Count</span>
+                                }
+                            }
+                            else if (cartPlan != null)
+                            {
+                                if (cartPlan.Count > 0)
+                                {
+                                    <span>@cartPlan.Count</span>
+                                }
+                            }
+                        </a>
+                    </li>
+                </ul>
+            </nav><!-- .nav-menu -->
+
+        </div>
+    </header><!-- End Header -->
+    <!-- Body Content -->
+    @RenderBody()
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/assets/vendor/counterup/counterup.min.js"></script>
+    <script src="~/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/assets/js/web/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+﻿@model Nexus_Service_Marketing_System.Models.plans
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Plans</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <form asp-controller="Plans" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="Plan_name" class="control-label"></label></td>
+                    <td><input asp-for="Plan_name" class="form-control" /></td>
+                    <td><span asp-validation-for="Plan_name" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_connection_id" class="control-label"></label></td>
+                    <td><input asp-for="Plan_connection_id" class="form-control" /></td>
+                    <td><span asp-validation-for="Plan_connection_id" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_description" class="control-label"></label></td>
+                    <td><input asp-for="Plan_description" class="form-control" /></td>
+                    <td><span asp-validation-for="Plan_description" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_fixed_price" class="control-label"></label></td>
+                    <td><input asp-for="Plan_fixed_price" class="form-control" required /></td>
+                    <td><span asp-validation-for="Plan_fixed_price" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_local_price" class="control-label"></label></td>
+                    <td><input asp-for="Plan_local_price" class="form-control" /></td>
+                    <td><span asp-validation-for="Plan_local_price" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_std_price" class="control-label"></label></td>
+                    <td><input asp-for="Plan_std_price" class="form-control" /></td>
+                    <td><span asp-validation-for="Plan_std_price" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_messaging_for_mobiles_price" class="control-label"></label></td>
+                    <td><input asp-for="Plan_messaging_for_mobiles_price" class="form-control" /></td>
+                    <td><span asp-validation-for="Plan_messaging_for_mobiles_price" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Plan_image_thumbnail" class="control-label"></label></td>
+                    <td><input type="file" name="txtFileName" class="form-control" required /></td>
+                    <td><span asp-validation-for="Plan_image_thumbnail" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Create" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-danger" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to create this plan?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Plans" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

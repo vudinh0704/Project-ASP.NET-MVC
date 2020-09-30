@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Index.cshtml";
+}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex justify-cntent-center align-items-center">
+    <div id="heroCarousel" class="container carousel carousel-fade" data-ride="carousel">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <div class="carousel-container">
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Nexus Service</span></h2>
+                <p class="animate__animated animate__fadeInUp">
+                    Nexus Communication System is an Organization system that provides two services like the tele-communications and Internet Services. It is one of the major vendors at the local place. We have now expanded our service all over the territory due to the increase in demand for the internet service.
+                </p>
+                <a href="#" class="btn-get-started ">Read More</a>
+            </div>
+
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+            <div class="carousel-container">
+                <h2 class="animate__animated animate__fadeInDown">What services do we actually provide?</h2>
+                <p class="animate__animated animate__fadeInUp">
+                    We actually provide two types of connections, one being the Dial – Up connection (Landline phone of the same vendor is compulsory to have this type of internet connection) and the other being the Broadband connection.
+                </p>
+                <a href="#" class="btn-get-started ">Read More</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+            <div class="carousel-container">
+                <h2 class="animate__animated animate__fadeInDown">The convenience we can give you...</h2>
+                <p class="animate__animated animate__fadeInUp">
+                    Due to the increase in demand for connection and as to increase the comfort level, we have opened the retail shops at each place so that the customer can enquire regarding the connection or place an order for the connection by directly visiting to the retail shops at their place in that city, instead of applying at the office at their city.
+                </p>
+                <a href="#" class="btn-get-started ">Read More</a>
+            </div>
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+</section><!-- End Hero Section -->
+
+<main id="main">
+
+    <!-- ======= Services Section ======= -->
+    <section class="services">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+                    <div class="icon-box icon-box-cyan">
+                        <div class="icon"><i class="bx bx-file bx-tada-hover"></i></div>
+                        <h4 class="title"><a asp-controller="Web" asp-action="Orders">Check Your Orders</a></h4>
+                        <p>Check the list of goods ordered, order feasibility (feasible or infeasible), order status (pending, complete or incomplete)...</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-box icon-box-green">
+                        <div class="icon"><i class="bx bx-tachometer bx-tada-hover"></i></div>
+                        <h4 class="title"><a asp-controller="Web" asp-action="PlansOrders">Check Your Plans</a></h4>
+                        <p>Monitor service usage and connection status...</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-box icon-box-pink">
+                        <div class="icon"><i class="bx bx-dollar bx-tada-hover"></i></div>
+                        <h4 class="title"><a asp-controller="Web" asp-action="Bills">Check Your Bills</a></h4>
+                        <p class="description">Check billing information and payment status...</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-box icon-box-blue">
+                        <div class="icon"><i class="bx bx-world bx-spin-hover"></i></div>
+                        <h4 class="title"><a href="">Other utilities</a></h4>
+                        <p class="description">Besides, we also provide many other utilities...</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 video-box">
+                    <img src="~/assets/img/why-us.jpg" class="img-fluid" alt="">
+                    <a href="https://www.youtube.com/watch?v=PddwDD_sEpc" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+                    <!-- <video src="~/assets/vid/introduction-1.mp4" controls="controls"></video> -->
+                </div>
+
+                <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
+
+                    <div class="icon-box">
+                        <div class="icon"><i class="bx bx-buildings"></i></div>
+                        <h4 class="title"><a href="">Retail Showroom System</a></h4>
+                        <p class="description">Due to the increase in demand for connection and as to increase the comfort level, we have opened the retail shops at each place so that the customer can enquire regarding the connection or place an order for the connection by directly visiting to the retail shops at their place in that city, instead of applying at the office at their city.</p>
+                    </div>
+
+                    <div class="icon-box">
+                        <div class="icon"><i class="bx bx-gift"></i></div>
+                        <h4 class="title"><a href="">Discount and Promotion</a></h4>
+                        <p class="description">We also recently started a bulk and corporate schemes, so as to retain the customers where they can avail a discount as per the option applied.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Why Us Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section class="features">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>MY NEXUS</h2>
+                <p>Smart spending, easy to use...</p>
+            </div>
+
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-5">
+                    <img src="~/assets/img/discount-1.png" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-7 pt-4">
+                    <h3>DON'T MISS THE PROMOTION</h3>
+                    <p class="font-italic">
+                        Update promotional information about connection plans exclusively for Nexus subscribers with convenient notification feature every day.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-5 order-1 order-md-2">
+                    <img src="~/assets/img/discount-2.png" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-7 pt-5 order-2 order-md-1">
+                    <h3>ACCUMULATE TO REDEEM ATTRACTIVE GIFTS</h3>
+                    <p class="font-italic">
+                        Each transaction will earn Nexus++ points, customers can redeem thousands of incentives for calling, data capacity, messages & attractive gratitude gifts such as entertainment vouchers, meals, travel, shopping...
+                    </p>
+                </div>
+            </div>
+
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-5">
+                    <img src="~/assets/img/track-details-1.png" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-7 pt-5">
+                    <h3>LOOK UP INFORMATION QUICKLY AND ACCURATELY</h3>
+                    <p>All information about the registered owner, equipments, connections and plans can be easily searched.</p>
+                </div>
+            </div>
+
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-5 order-1 order-md-2">
+                    <img src="~/assets/img/track-details-2.png" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-7 pt-5 order-2 order-md-1">
+                    <h3>REASONABLE SPENDING MANAGEMENT</h3>
+                    <p class="font-italic">
+                        Customers can proactively look up telecom charges in a transparent and clear way to adjust the appropriate budget for each period.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row" data-aos="fade-up">
+                <div class="col-md-5">
+                    <img src="~/assets/img/support-1.png" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-7 pt-5">
+                    <h3>24/7 SUPPORT</h3>
+                    <p>Users can check warranty information, report service errors, reset device modem, change wifi password with just a few taps.</p>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Features Section -->
+
+</main><!-- End #main -->

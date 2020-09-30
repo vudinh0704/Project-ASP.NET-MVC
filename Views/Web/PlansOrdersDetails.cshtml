@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.tracks>
+
+@{
+    ViewData["Title"] = "Plans Orders Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+
+    <!-- ======= Our Plans Orders Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Plans Order Details</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Web" asp-action="Services">Services</a></li>
+                    <li><a asp-controller="Web" asp-action="PlansOrders">Plans Orders</a></li>
+                    <li>Plans Orders Details</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Plans Orders Section -->
+
+    <!-- ======= Plans Orders Details Section ======= -->
+    <section class="plans-orders-details">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                @using (Html.BeginForm())
+                {
+                    <label class="control-label">Period</label>
+                    <input type="month" name="txtPeriod" />
+                    <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+                }
+
+                <h3>
+                    Connection Status:
+                    @if (@ViewBag.Status.Equals("Connected"))
+                    {
+                        <span class="text-primary">
+                            @ViewBag.Status
+                        </span>
+                    }
+                    else if (@ViewBag.Status.Equals("Disconnected"))
+                    {
+                        <span class="text-danger">
+                            @ViewBag.Status
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-secondary">
+                            @ViewBag.Status
+                        </span>
+                    }
+                </h3>
+            </div>
+
+            <br />
+
+            <div class="d-flex justify-content-center">
+                <h3 class="text-primary">@ViewBag.Msg</h3>
+            </div>
+
+            <br />
+
+            @if (Model == null)
+            {
+                <table class="table table-hover" border="1" style="text-align:center; vertical-align:middle">
+                    <thead>
+                        <tr>
+                            <th rowspan="3">Plans Orders ID</th>
+                            <th colspan="6">Track</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Period</th>
+                            <th colspan="3">Used Time</th>
+                            <th rowspan="2">Status</th>
+                        </tr>
+                        <tr>
+                            <th>Date From</th>
+                            <th>Date To</th>
+                            <th>Local</th>
+                            <th>Standard</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Track_plans_orders_id
+                                </td>
+                                <td>
+                                    @item.Track_date_from
+                                </td>
+                                <td>
+                                    @item.Track_date_to
+                                </td>
+                                <td>
+                                    @item.Track_time_used_local
+                                </td>
+                                <td>
+                                    @item.Track_time_used_std
+                                </td>
+                                <td>
+                                    @item.Track_time_used_msg
+                                </td>
+                                <td>
+                                    @item.Track_status
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </section><!-- End Plans Orders Details Section -->
+
+</main>

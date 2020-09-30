@@ -1,0 +1,74 @@
+﻿@model Nexus_Service_Marketing_System.Models.plans_orders
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var plansOrdersStatus = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Pending", Value = "Pending"},
+        new SelectListItem { Text = "Temporarily Inactive", Value = "Temporarily Inactive"},
+        new SelectListItem { Text = "Permanently Inactive", Value = "Permanently Inactive"},
+        new SelectListItem { Text = "Connected", Value = "Connected"},
+        new SelectListItem { Text = "Disconnected", Value = "Disconnected"},
+        new SelectListItem { Text = "Expired", Value = "Expired"}
+    };
+}
+
+<h1>Update</h1>
+
+<h4>Plans Orders</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <form asp-controller="PlansOrders" asp-action="Update" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Plans_orders_id" class="form-control" value="@Model.Plans_orders_id" hidden="hidden" />
+
+            <table class="table">
+                <tr>
+                    <td><label type="text" asp-for="Plans_orders_status" class="control-label"></label></td>
+                    <td>
+                        <select asp-for="Plans_orders_status" asp-items="@plansOrdersStatus"></select>
+                    </td>
+                    <td><span asp-validation-for="Plans_orders_id" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Save" class="btn btn-primary" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to update this plans-orders's information?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="PlansOrders" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

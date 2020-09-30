@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.tracks>
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var role = Context.Session.GetString("accRole");
+}
+
+<h1>Details</h1>
+
+<h4>Plans Orders</h4>
+
+<hr />
+
+<div class="d-flex justify-content-between">
+    @using (Html.BeginForm())
+    {
+        <label class="control-label">Period</label>
+        <input type="month" name="txtPeriod" />
+        <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+    }
+
+    <h3 style="margin-top: 0">
+        Connection Status:
+        @if (@ViewBag.Status.Equals("Connected"))
+        {
+            <span class="text-primary">
+                @ViewBag.Status
+            </span>
+        }
+        else if (@ViewBag.Status.Equals("Disconnected"))
+        {
+            <span class="text-danger">
+                @ViewBag.Status
+            </span>
+        }
+        else
+        {
+            <span class="text-secondary">
+                @ViewBag.Status
+            </span>
+        }
+    </h3>
+</div>
+
+<br />
+
+<table class="table table-hover" border="1" style="text-align:center; vertical-align:middle">
+    <thead>
+        <tr>
+            <th rowspan="3">Plans Orders ID</th>
+            <th colspan="6">Track</th>
+            <th rowspan="3">Actions</th>
+        </tr>
+        <tr>
+            <th colspan="2">Period</th>
+            <th colspan="3">Used Time</th>
+            <th rowspan="2">Status</th>
+        </tr>
+        <tr>
+            <th>Date From</th>
+            <th>Date To</th>
+            <th>Local</th>
+            <th>Standard</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Track_plans_orders_id
+                </td>
+                <td>
+                    @item.Track_date_from
+                </td>
+                <td>
+                    @item.Track_date_to
+                </td>
+                <td>
+                    @item.Track_time_used_local
+                </td>
+                <td>
+                    @item.Track_time_used_std
+                </td>
+                <td>
+                    @item.Track_time_used_msg
+                </td>
+                <td>
+                    @item.Track_status
+                </td>
+                <td>
+                    @if (role == "Accountant")
+                    {
+                        @if (item.Track_status.Equals("Complete"))
+                        {
+                            <form asp-controller="Tracks" asp-action="Index" style="display: inline">
+                                <input type="text" name="txtTrackId" value="@item.Track_id" class="btn-info" hidden="hidden" />
+                                <input type="submit" value="Bill+++" class="btn-outline-info" />
+                            </form>
+                        }
+                        else
+                        {
+                            <input type="submit" value="Bill+++" class="btn-outline-secondary" disabled />
+                        }
+
+                        <a asp-controller="PlansOrders" asp-action="Update" asp-route-id="@item.Track_plans_orders_id"><button class="btn-outline-primary">Update</button></a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <h3 class="text-light">@ViewBag.Msg</h3>
+</div>

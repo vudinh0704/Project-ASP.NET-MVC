@@ -1,0 +1,247 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@model Nexus_Service_Marketing_System.Models.plans
+
+@{
+    ViewData["Title"] = "Plan Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var id = Context.Session.GetString("accId");
+    var role = Context.Session.GetString("accRole");
+}
+
+<main id="main">
+
+    <!-- ======= Our Plans Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Plan Details</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li>Products</li>
+                    <li><a asp-controller="Web" asp-action="Plans">Plans</a></li>
+                    <li>Plan Details</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Plans Section -->
+
+    <!-- ======= Plan Details Section ======= -->
+    <section class="product-details">
+        <div class="container">
+
+            <div class="product-details-container">
+
+                <div class="product-image">
+                    <img src="~/assets/img/products/@Url.Content(Model.Plan_image_thumbnail)" class="img-fluid" alt="">
+                </div>
+
+                <form asp-controller="Web" asp-action="AddPlanToCart" method="get">
+                    <div class="product-info">
+                        <h3>Plan information</h3>
+
+                        <ul>
+                            <li><strong>Name</strong>: @Model.Plan_name</li>
+                            <li><strong>Fixed Price</strong>: <a href="#">$@Model.Plan_fixed_price</a></li>
+
+                            @if (Model.Plan_local_price > 0)
+                            {
+                                <li><strong>Local Price</strong>: <a href="#">$@Model.Plan_local_price</a></li>
+                            }
+
+                            @if (Model.Plan_std_price > 0)
+                            {
+                                <li><strong>STD Price</strong>: <a href="#">$@Model.Plan_std_price</a></li>
+                            }
+
+                            @if (Model.Plan_messaging_for_mobiles_price > 0)
+                            {
+                                <li><strong>Messaging for Mobiles Price</strong>: <a href="#">$@Model.Plan_messaging_for_mobiles_price</a></li>
+                            }
+                        </ul>
+
+                        <input type="text" name="txtPlanId" value="@Model.Plan_id" hidden="hidden" />
+                        <input type="submit" name="btnAddToCart" value="Add To Cart" class="btn-info" width="10" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="product-description">
+                <h2>About Plan</h2>
+                <p>@Model.Plan_description</p>
+            </div>
+
+            @if (role == "Customer" && id != null)
+            {
+                <form asp-controller="Web" asp-action="FeedbackCreate" method="post">
+                    <input name="txtAccId" value="@Context.Session.GetString("accId")" hidden />
+                    <input name="txtPlanId" value="@Model.Plan_id" hidden />
+                    <input name="txtFeedbackTitle" class="form-control" placeholder="Feedback title..." required />
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <textarea name="txtFeedbackContent" class="form-control md-form pink-textarea active-pink-textarea-2" rows="3" style="width: 92.5%" placeholder="Feedback content..." required></textarea>
+                        <button type="submit" class="btn-info">Send</button>
+                    </div>
+                </form>
+
+                <hr />
+
+            }
+            @if (ViewBag.Feedbacks == null)
+            {
+                <h5>There are no feedbacks!</h5>
+            }
+            else
+            {
+                int i = 0;
+
+                @foreach (var item in ViewBag.Feedbacks)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Feedback_title</h5>
+
+                            <div class="d-flex justify-content-start">
+                                <p>
+                                    <i class="icofont-user pr-2"></i>
+
+                                    @if (item.Feedback_account_name == null)
+                                    {
+                                        <span><a>@item.Feedback_account_id</a></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a>@item.Feedback_account_name</a></span>
+                                    }
+                                </p>
+                                <p>
+                                    <i class="icofont-wall-clock pl-4 pr-2"></i>
+                                    <span><a><time>@item.Feedback_created_at</time></a></span>
+                                </p>
+                            </div>
+
+                            <p class="card-text">@item.Feedback_content</p>
+
+                            @if (role == "Customer" && id != null)
+                            {
+                                <form asp-controller="Web" asp-action="ReplyCreate" method="post">
+                                    <input name="txtAccId" value="@Context.Session.GetString("accId")" hidden />
+                                    <input name="txtFeedbackId" value="@item.Feedback_id" hidden />
+                                    <input name="txtPlanId" value="@Model.Plan_id" hidden />
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="md-form pink-textarea active-pink-textarea-2" style="width: 92.5%">
+                                            <i class="fas fa-angle-double-right prefix"></i>
+                                            <textarea name="txtReplyContent" id="reply_@i" class="md-textarea form-control" rows="1" placeholder="Enter your reply..." required></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn-info ">Send</button>
+                                    </div>
+                                </form>
+                            }
+
+                            @{
+                                var count = item.Replies.Count;
+                            }
+
+                            @if (count > 0)
+                            {
+                                <hr />
+
+                                @if (count > 2)
+                                {
+                                    <p class="lead">
+                                        <a class="btn btn-info" data-toggle="collapse" data-target="#collapse_@i" href="#collapse_@i" role="button">View more</a>
+                                    </p>
+                                }
+
+                                @if (count <= 2)
+                                {
+                                    @for (var j = 0; j < count; j++)
+                                    {
+                                        <div class="ml-5">
+                                            <div class="d-flex justify-content-start align-items-center pt-2">
+                                                <i class="icofont-user pr-2"></i>
+
+                                                @if (item.Replies[j].Reply_account_name == null)
+                                                {
+                                                    <a>@item.Replies[j].Reply_account_id</a>
+                                                }
+                                                else
+                                                {
+                                                    <a>@item.Replies[j].Reply_account_name</a>
+                                                }
+                                                <i class="icofont-wall-clock pl-4 pr-2"></i>
+                                                <a><time>@item.Replies[j].Reply_created_at</time></a>
+                                            </div>
+
+                                            <input type="text" class="form-control mb-2" style="width: 95%" value="@item.Replies[j].Reply_content" readonly />
+                                        </div>
+                                    }
+                                }
+
+                                @if (count > 2)
+                                {
+                                    @for (var j = 0; j < 2; j++)
+                                    {
+                                        <div class="ml-5">
+                                            <div class="d-flex justify-content-start align-items-center pt-2">
+                                                <i class="icofont-user pr-2"></i>
+
+                                                @if (item.Replies[j].Reply_account_name == null)
+                                                {
+                                                    <a>@item.Replies[j].Reply_account_id</a>
+                                                }
+                                                else
+                                                {
+                                                    <a>@item.Replies[j].Reply_account_name</a>
+                                                }
+                                                <i class="icofont-wall-clock pl-4 pr-2"></i>
+                                                <a><time>@item.Replies[j].Reply_created_at</time></a>
+                                            </div>
+
+                                            <input type="text" class="form-control mb-2" style="width: 95%" value="@item.Replies[j].Reply_content" readonly />
+                                        </div>
+                                    }
+
+                                    <div class="collapse" id="collapse_@i">
+                                        @for (var j = 2; j < count; j++)
+                                        {
+                                            <div class="ml-5">
+                                                <div class="d-flex justify-content-start align-items-center pt-2">
+                                                    <i class="icofont-user pr-2"></i>
+
+                                                    @if (item.Replies[j].Reply_account_name == null)
+                                                    {
+                                                        <a>@item.Replies[j].Reply_account_id</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a>@item.Replies[j].Reply_account_name</a>
+                                                    }
+                                                    <i class="icofont-wall-clock pl-4 pr-2"></i>
+                                                    <a><time>@item.Replies[j].Reply_created_at</time></a>
+                                                </div>
+
+                                                <input type="text" class="form-control mb-2" style="width: 95%" value="@item.Replies[j].Reply_content" readonly />
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <br />
+
+                    i++;
+                }
+            }
+
+        </div>
+    </section><!-- End Plan Details Section -->
+
+</main><!-- End #main -->

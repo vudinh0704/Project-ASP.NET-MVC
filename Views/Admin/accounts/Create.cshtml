@@ -1,0 +1,118 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@model Nexus_Service_Marketing_System.Models.accounts
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var accRole = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Accountant", Value = "Accountant"},
+        new SelectListItem { Text = "Technician", Value = "Technician"},
+        new SelectListItem { Text = "SalesPerson", Value = "SalesPerson"}
+    };
+
+    var accStatus = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Active", Value = "Active"},
+        new SelectListItem { Text = "Inactive", Value = "Inactive"}
+    };
+
+    var role = Context.Session.GetString("accRole");
+}
+
+<h1>Create</h1>
+
+<h4>Accounts</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <form asp-controller="Accounts" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="Account_id" class="control-label"></label></td>
+                    <td><input asp-for="Account_id" class="form-control" /></td>
+                    <td><span asp-validation-for="Account_id" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Account_name" class="control-label"></label></td>
+                    <td><input asp-for="Account_name" class="form-control" /></td>
+                    <td><span asp-validation-for="Account_name" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Account_password" class="control-label"></label></td>
+                    <td><input type="password" asp-for="Account_password" class="form-control" /></td>
+                    <td><span asp-validation-for="Account_password" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Account_phone" class="control-label"></label></td>
+                    <td><input asp-for="Account_phone" class="form-control" /></td>
+                    <td><span asp-validation-for="Account_phone" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Account_email" class="control-label"></label></td>
+                    <td><input asp-for="Account_email" class="form-control" /></td>
+                    <td><span asp-validation-for="Account_name" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Account_address" class="control-label"></label></td>
+                    <td><input asp-for="Account_address" class="form-control" /></td>
+                    <td><span asp-validation-for="Account_address" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Account_role" class="control-label"></label></td>
+                    <td>
+                        <select asp-for="Account_role" asp-items="@accRole">
+                            <option value="---">--- Select ---</option>
+                        </select>
+                    </td>
+                    <td><span asp-validation-for="Account_role" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input asp-for="Account_status" class="form-control" value="Active" hidden="hidden" /></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Create" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-danger" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to create this account?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Accounts" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

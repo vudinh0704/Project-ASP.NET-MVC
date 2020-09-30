@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<form asp-controller="Web" asp-action="Login" enctype="multipart/form-data">
+    <main id="main">
+        <div class="frmLogin">
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <div class="center">
+                <h2>Please Sign In</h2>
+
+                <input type="text" name="txtAccId" placeholder="Account ID..." />
+                <input type="password" name="txtAccPwd" placeholder="Account Password..." />
+                <input type="submit" name="btnLogin" value="Login" class="btn-info" />
+                <input type="reset" name="btnReset" value="Reset" class="btn-danger" />
+
+                <h4 class="text-danger" style="text-align: center">@ViewBag.Msg</h4>
+            </div>
+        </div>
+    </main>
+</form>

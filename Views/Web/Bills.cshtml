@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.bills>
+
+@{
+    ViewData["Title"] = "Bills";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+
+    <!-- ======= Our Billings Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Bills</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Web" asp-action="Services">Services</a></li>
+                    <li>Bills</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Bills Section -->
+
+    <!-- ======= Bills Section ======= -->
+    <section class="bills">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                @using (Html.BeginForm())
+                {
+                    <input type="text" name="txtBillId" placeholder="Enter bill id..." />
+                    <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+                }
+            </div>
+
+            <br />
+
+            <div class="d-flex justify-content-center">
+                <h3 class="text-primary">@ViewBag.Msg</h3>
+            </div>
+
+            <br />
+
+            @if (Model != null)
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Bill_id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Bill_order_id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Bill_track_id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Bill_status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Bill_date)
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bill_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bill_order_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bill_track_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bill_status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bill_date)
+                                </td>
+                                <td>
+                                    <a asp-controller="Web" asp-action="BillDetails" asp-route-id="@item.Bill_id"><button class="btn-outline-info">Details</button></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </section><!-- End Bills Section -->
+
+</main><!-- End #main -->

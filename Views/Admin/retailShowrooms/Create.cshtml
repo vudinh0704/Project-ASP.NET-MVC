@@ -1,0 +1,92 @@
+﻿@model Nexus_Service_Marketing_System.Models.retailShowrooms
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var retailShowroomStatus = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Active", Value = "Active"},
+        new SelectListItem { Text = "Inactive", Value = "Inactive"}
+    };
+}
+
+<h1>Create</h1>
+
+<h4>Retail Showrooms</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <form asp-controller="RetailShowrooms" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="RetailShowroom_name" class="control-label"></label></td>
+                    <td><input asp-for="RetailShowroom_name" class="form-control" /></td>
+                    <td><span asp-validation-for="RetailShowroom_name" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label type="text" asp-for="RetailShowroom_city_id" class="control-label"></label></td>
+                    <td>
+                        <input asp-for="RetailShowroom_city_id" class="form-control" />
+                        @*<select asp-for="RetailShowroom_city_id" asp-items="@ViewBag.Cities" class="form-control text-dark">
+                        <option value="---">--- Select ---</option>
+                    </select>*@
+                    </td>
+                    <td><span asp-validation-for="RetailShowroom_city_id" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="RetailShowroom_address" class="control-label"></label></td>
+                    <td><input asp-for="RetailShowroom_address" class="form-control" /></td>
+                    <td><span asp-validation-for="RetailShowroom_address" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="RetailShowroom_status" class="control-label"></label></td>
+                    <td>
+                        <select asp-for="RetailShowroom_status" asp-items="@retailShowroomStatus">
+                            <option value="---">--- Select ---</option>
+                        </select>
+                    </td>
+                    <td><span asp-validation-for="RetailShowroom_status" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Create" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-danger" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to create this retail showroom?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="RetailShowrooms" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

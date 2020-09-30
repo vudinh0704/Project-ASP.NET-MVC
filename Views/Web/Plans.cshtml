@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.plans>
+
+@{
+    ViewData["Title"] = "Plans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+
+    <!-- ======= Our Plans Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Plans</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li>Products</li>
+                    <li>Plans</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Plans Section -->
+
+    <!-- ======= Plans Section ======= -->
+    <section class="products">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul id="products-filters">
+                        <li data-filter="*" class="filter-active">All</li>
+                        <li data-filter=".filter-dialUp">Dial - Up Connection</li>
+                        <li data-filter=".filter-landLine">Land Line Connection</li>
+                        <li data-filter=".filter-broadBand">Broad Band Connection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row products-container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+
+                @foreach (var item in Model)
+                {
+                    @if (item.Plan_connection_id == 1)
+                    {
+                        <div class="col-lg-4 col-md-6 filter-dialUp">
+                            <div class="plan-item">
+                                <div class="plan-img">
+                                    <img src="~/assets/img/products/@Url.Content(item.Plan_image_thumbnail)" class="img-fluid" alt="">
+                                    <div class="plan-info">
+                                        <a asp-controller="Web" asp-action="Plans" asp-route-id="@item.Plan_id" title="Plan Details"><i class="bx bx-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="plan-intro">
+                                    <h4>@item.Plan_name</h4>
+                                    <span>@item.Plan_connection_name</span>
+                                    <p>@item.Plan_description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (item.Plan_connection_id == 2)
+                    {
+                        <div class="col-lg-4 col-md-6 filter-landLine">
+                            <div class="plan-item">
+                                <div class="plan-img">
+                                    <img src="~/assets/img/products/@Url.Content(item.Plan_image_thumbnail)" class="img-fluid" alt="">
+                                    <div class="plan-info">
+                                        <a asp-controller="Web" asp-action="Plans" asp-route-id="@item.Plan_id" title="Plan Details"><i class="bx bx-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="plan-intro">
+                                    <h4>@item.Plan_name</h4>
+                                    <span>@item.Plan_connection_name</span>
+                                    <p>@item.Plan_description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (item.Plan_connection_id == 3)
+                    {
+                        <div class="col-lg-4 col-md-6 filter-broadBand">
+                            <div class="plan-item">
+                                <div class="plan-img">
+                                    <img src="~/assets/img/products/@Url.Content(item.Plan_image_thumbnail)" class="img-fluid" alt="">
+                                    <div class="plan-info">
+                                        <a asp-controller="Web" asp-action="Plans" asp-route-id="@item.Plan_id" title="Plan Details"><i class="bx bx-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="plan-intro">
+                                    <h4>@item.Plan_name</h4>
+                                    <span>@item.Plan_connection_name</span>
+                                    <p>@item.Plan_description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }                
+
+            </div>
+
+        </div>
+    </section><!-- End Plans Section -->
+
+</main><!-- End #main -->

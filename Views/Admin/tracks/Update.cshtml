@@ -1,0 +1,85 @@
+﻿@model Nexus_Service_Marketing_System.Models.tracks
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var trackStatus = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Pending", Value = "Pending"},
+        new SelectListItem { Text = "Complete", Value = "Complete"}
+    };
+}
+
+<h1>Update</h1>
+
+<h4>Tracks</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <form asp-controller="Tracks" asp-action="Update" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Track_id" class="form-control" value="@Model.Track_id" hidden="hidden" />
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="Track_time_used_local" class="control-label"></label></td>
+                    <td><input asp-for="Track_time_used_local" class="form-control" /></td>
+                    <td><span asp-validation-for="Track_time_used_local" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Track_time_used_std" class="control-label"></label></td>
+                    <td><input asp-for="Track_time_used_std" class="form-control" /></td>
+                    <td><span asp-validation-for="Track_time_used_std" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Track_time_used_msg" class="control-label"></label></td>
+                    <td><input asp-for="Track_time_used_msg" class="form-control" /></td>
+                    <td><span asp-validation-for="Track_time_used_msg" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Track_status" class="control-label"></label></td>
+                    <td>
+                        <select asp-for="Track_status" asp-items="@trackStatus"></select>
+                    </td>
+                    <td><span asp-validation-for="Track_status" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Save" class="btn btn-primary" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to update this track's information?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Tracks" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

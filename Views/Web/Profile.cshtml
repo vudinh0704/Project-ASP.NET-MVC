@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@model Nexus_Service_Marketing_System.Models.accounts
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+
+    <!-- ======= Our Profile Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Profile</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li>Profile</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Profile Section -->
+
+    <!-- ======= Profile Section ======= -->
+    <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-out-duration="500">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Your Profile</h4>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <dl>
+                                        <dt class="col-sm-5">
+                                            @Html.DisplayNameFor(model => model.Account_id)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.Account_id)
+                                        </dd>
+                                        <dt class="col-sm-5">
+                                            @Html.DisplayNameFor(model => model.Account_name)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.Account_name)
+                                        </dd>
+                                        <dt class="col-sm-5">
+                                            @Html.DisplayNameFor(model => model.Account_address)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.Account_address)
+                                        </dd>
+                                        <dt class="col-sm-5">
+                                            @Html.DisplayNameFor(model => model.Account_phone)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.Account_phone)
+                                        </dd>
+                                        <dt class="col-sm-5">
+                                            @Html.DisplayNameFor(model => model.Account_email)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.Account_email)
+                                        </dd>
+                                        <dt class="col-sm-4">
+                                            @Html.DisplayNameFor(model => model.Account_status)
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @Html.DisplayFor(model => model.Account_status)
+                                        </dd>
+                                        <dt class="col-sm-5">
+                                            @Html.DisplayNameFor(model => model.Account_role)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.Account_role)
+                                        </dd>
+                                        @if (Context.Session.GetString("accRole") == "SalesPerson")
+                                        {
+                                            <dt class="col-sm-5">
+                                                @Html.DisplayNameFor(model => model.Account_retailShowroom_name)
+                                            </dt>
+                                            <dd class="col-sm-10">
+                                                @Html.DisplayFor(model => model.Account_retailShowroom_name)
+                                            </dd>
+                                        }
+                                    </dl>
+
+                                    <div class="form-group row">
+                                        <div class="offset-4 col-8">
+                                            <a asp-controller="Web" asp-action="ProfileUpdate" asp-route-id="@Context.Session.GetString("accId")"><button class="btn-outline-info">Edit</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Profile Section -->
+
+</main>

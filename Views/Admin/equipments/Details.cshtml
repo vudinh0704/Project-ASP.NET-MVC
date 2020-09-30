@@ -1,0 +1,53 @@
+﻿@model Nexus_Service_Marketing_System.Models.equipments
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Equipments</h4>
+
+    <hr />
+
+    <div class="row text-light">
+        <dl class="row col-6">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Equipment_name)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Equipment_name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Equipment_type)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Equipment_type)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Equipment_content)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Equipment_content)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Equipment_price)
+            </dt>
+            <dd class="col-sm-7">
+                $@Html.DisplayFor(model => model.Equipment_price)
+            </dd>
+        </dl>
+        
+        <div class="col-6">
+            <div>
+                <img src="~/assets/img/products/@Model.Equipment_image_thumbnail" width="400" height="250" />
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-controller="Equipments" asp-action="Update" asp-route-id="@Model.Equipment_id"><button class="btn-outline-primary">Edit</button></a>
+        <a asp-controller="Equipments" asp-action="Index"><button class="btn-outline-light">Back to List</button></a>
+    </div>

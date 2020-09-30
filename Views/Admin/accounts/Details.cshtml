@@ -1,0 +1,64 @@
+﻿@model Nexus_Service_Marketing_System.Models.accounts
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Accounts</h4>
+
+    <hr />
+
+    <dl class="row text-light">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_id)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_id)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_name)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_name)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_password)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_password)
+        </dd>        
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_address)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_address)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_phone)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_phone)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_status)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_status)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Account_role)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Account_role)
+        </dd>
+    </dl>
+</div>
+
+<div>    
+    <a asp-controller="Accounts" asp-action="Update" asp-route-id="@Model.Account_id"><button class="btn-outline-primary">Edit</button></a>   
+    <a asp-controller="Accounts" asp-action="Index"><button class="btn-outline-light">Back to List</button></a>
+</div>

@@ -1,0 +1,104 @@
+﻿@model Nexus_Service_Marketing_System.Models.equipments
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var equipType = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Modem", Value = "Modem"},
+        new SelectListItem { Text = "Router", Value = "Router"},
+        new SelectListItem { Text = "Cable", Value = "Cable"},
+        new SelectListItem { Text = "Adapter", Value = "Adapter"}        
+    };
+}
+
+<h1>Create</h1>
+
+<h4>Equipments</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <form asp-controller="Equipments" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <table class="table">
+                <tr>
+                    <td><label asp-for="Equipment_vendor_id" class="control-label"></label></td>
+                    <td><input asp-for="Equipment_vendor_id" class="form-control" /></td>
+                    <td><span asp-validation-for="Equipment_vendor_id" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Equipment_name" class="control-label"></label></td>
+                    <td><input asp-for="Equipment_name" class="form-control" /></td>
+                    <td><span asp-validation-for="Equipment_name" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Equipment_type" class="control-label"></label></td>
+                    <td>
+                        <select asp-for="Equipment_type" asp-items="@equipType">
+                            <option value="---">--- Select ---</option>
+                        </select>
+                    </td>
+                    <td><span asp-validation-for="Equipment_type" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Equipment_content" class="control-label"></label></td>
+                    <td><input asp-for="Equipment_content" class="form-control" /></td>
+                    <td><span asp-validation-for="Equipment_content" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Equipment_price" class="control-label"></label></td>
+                    <td><input asp-for="Equipment_price" class="form-control" /></td>
+                    <td><span asp-validation-for="Equipment_price" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Equipment_quantity" class="control-label"></label></td>
+                    <td><input asp-for="Equipment_quantity" class="form-control" /></td>
+                    <td><span asp-validation-for="Equipment_quantity" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Equipment_image_thumbnail" class="control-label"></label></td>
+                    <td><input type="file" name="txtFileName" class="form-control" required /></td>
+                    <td><span asp-validation-for="Equipment_image_thumbnail" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Create" class="btn btn-primary" />
+            <input type="reset" value="Reset" class="btn btn-danger" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to create this equipment?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Equipments" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.bills>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Index</h1>
+
+<h4>Bills</h4>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    <input type="text" name="txtBillId" placeholder="Enter bill id..." />
+    <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+}
+
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill_order_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill_track_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill_status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill_date)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill_order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill_track_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill_status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill_date)
+                </td>
+                <td>
+                    <a asp-controller="Bills" asp-action="Details" asp-route-id="@item.Bill_id"><button class="btn-outline-info">Details</button></a>                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <h3 class="text-light">@ViewBag.Msg</h3>
+</div>

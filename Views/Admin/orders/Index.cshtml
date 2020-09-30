@@ -1,0 +1,156 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.orders>
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    var role = Context.Session.GetString("accRole");
+}
+
+<h1>Index</h1>
+
+<h4>Orders</h4>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    <input type="text" name="txtOrderId" placeholder="Enter order id..." />
+    <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+}
+
+<br />
+
+<div class="d-flex"><p class="text-danger">@TempData["Notification"]</p></div>
+
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_feasibility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_date)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order_feasibility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order_status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order_date)
+                </td>
+                <td>
+                    <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.Order_id"><button class="btn-outline-info">Details</button></a>
+
+                    @if (item.Order_status.Equals("Complete"))
+                    {
+                        @if (role == "Technician")
+                        {
+                            <a asp-controller="Orders" asp-action="Update" asp-route-id="@item.Order_id"><button class="btn-outline-secondary" disabled>Edit</button></a>
+
+                            @if (!item.Order_plans_orders_id.Equals("NULL"))
+                            {
+                                if (item.Order_account_id == null)
+                                {
+                                    <form asp-controller="Orders" asp-action="CreateAccountCustomer" method="post" style="display: inline">
+                                        <input type="text" name="txtOrderId" value="@item.Order_id" class="btn-info" hidden="hidden" />
+                                        <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Customer+++" class="btn-outline-danger" />
+
+                                        <!-- Modal -->
+                                            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Alert</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">Are you sure you want to create the customer account for this order?</div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- End Modal -->
+                                    </form>
+                                }
+                                else
+                                {
+                                    <input type="submit" value="Customer+++" class="btn-outline-secondary" disabled />
+                                }
+                            }
+                        }
+
+                        @if (role == "Accountant")
+                        {
+                            <form asp-controller="Bills" asp-action="Create" method="get" style="display: inline">
+                                <input type="text" name="txtBasedOnId" value="@item.Order_id" class="btn-info" hidden="hidden" />
+                                <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Bill+++" class="btn-outline-success" />
+
+                                <!-- Modal -->
+                                <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Alert</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Are you sure you want to create the bill for this order?</div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Modal -->
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        @if (role == "Technician")
+                        {
+                            <a asp-controller="Orders" asp-action="Update" asp-route-id="@item.Order_id"><button class="btn-outline-primary">Edit</button></a>
+                            <input type="submit" value="Customer+++" class="btn-outline-secondary" disabled />
+                        }
+                        @if (role == "Accountant")
+                        {
+                            <input type="submit" value="Bill+++" class="btn-outline-secondary" disabled />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <h3 class="text-light">@ViewBag.Msg</h3>
+</div>

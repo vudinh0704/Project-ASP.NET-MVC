@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@model Nexus_Service_Marketing_System.Models.orders
+
+@{
+    ViewData["Title"] = "Order Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+
+    <!-- ======= Our Orders Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Orders</h2>
+                <ol>
+                    <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Web" asp-action="Orders">Orders</a></li>
+                    <li>Create</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Our Orders Section -->
+
+    <!-- ======= Create Order Section ======= -->
+    <section class="order-create">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-center">
+                        <h3 class="text-danger">@ViewBag.Msg</h3>
+                    </div>
+
+                    <br />
+
+                    <form asp-controller="Web" asp-action="OrderCreate" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Order_id" class="control-label"></label>
+                            <input asp-for="Order_id" class="form-control" value="@ViewBag.OrderId" readonly="readonly" />
+                            <span asp-validation-for="Order_id" class="text-danger"></span>
+                        </div>
+
+                        @if (Context.Session.GetString("accRole").Equals("Customer"))
+                        {
+                            <div class="form-group">
+                                <input asp-for="Order_account_id" value="@Context.Session.GetString("accId")" class="form-control" hidden="hidden" />
+                            </div>
+
+                            <div>
+                                <h4 class="text-info">Your current account information will be updated on this order. Do you want to continue?</h4>
+                            </div>
+                        }
+
+                        @if (Context.Session.GetString("accRole").Equals("SalesPerson"))
+                        {
+                            var storeId = Context.Session.GetString("storeId");
+
+                            <div class="form-group">
+                                <label asp-for="Order_phone" class="control-label"></label>
+                                <input asp-for="Order_phone" class="form-control" pattern="^[0-9]{10}$" title="Phone number is a string of 10 digital characters." required />
+                                <span asp-validation-for="Order_phone" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Order_address" class="control-label"></label>
+                                <input asp-for="Order_address" class="form-control" required />
+                                <span asp-validation-for="Order_address" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input asp-for="Order_retailShowroom_id" value="@storeId" class="form-control" hidden="hidden" />
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            <input asp-for="Order_feasibility" class="form-control" value="Pending" hidden="hidden" />
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="Order_status" class="form-control" value="Pending" hidden="hidden" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Create" class="btn btn-outline-info" />
+                        </div>
+
+                        <!-- Modal -->
+                        <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Alert</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Are you sure you want to create this order?</div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Modal -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Create Order Section -->
+
+</main><!-- End #main -->

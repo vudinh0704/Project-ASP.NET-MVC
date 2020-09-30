@@ -1,0 +1,46 @@
+﻿@model Nexus_Service_Marketing_System.Models.retailShowrooms
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Retail Showrooms</h4>
+
+    <hr />
+
+    <dl class="row text-light">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.RetailShowroom_name)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.RetailShowroom_name)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.RetailShowroom_city_name)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.RetailShowroom_city_name)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.RetailShowroom_address)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.RetailShowroom_address)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.RetailShowroom_status)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.RetailShowroom_status)
+        </dd>
+    </dl>
+</div>
+
+<div>    
+    <a asp-controller="RetailShowrooms" asp-action="Update" asp-route-id="@Model.RetailShowroom_id"><button class="btn-outline-primary">Edit</button></a>   
+    <a asp-controller="RetailShowrooms" asp-action="Index"><button class="btn-outline-light">Back to List</button></a>
+</div>

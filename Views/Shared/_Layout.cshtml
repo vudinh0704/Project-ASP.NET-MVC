@@ -1,0 +1,215 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Nexus_Service_Marketing_System.Models;
+@using Nexus_Service_Marketing_System.Responsitory;
+
+@{
+    var role = Context.Session.GetString("accRole");
+    var cartEquipment = SessionHelper.GetObjectAsJson<List<equipments_orders>>(Context.Session, "cartEquipment");
+    var cartPlan = SessionHelper.GetObjectAsJson<List<plans_orders>>(Context.Session, "cartPlan");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Index - Nexus Service</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/assets/img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="~/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/assets/css/web/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container">
+
+            <div class="logo float-left">
+                <h1 class="text-light"><a asp-controller="Web" asp-action="Index"><span>Nexus Service</span></a></h1>
+            </div>
+
+            <nav class="nav-menu float-right d-none d-lg-block">
+                <ul>
+                    <li class="active"><a asp-controller="Web" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Web" asp-action="AboutUs">About Us</a></li>
+                    <li><a asp-controller="Web" asp-action="Services">Services</a></li>
+                    <li class="drop-down">
+                        <a href="#">Products</a>
+                        <ul>
+                            <li><a asp-controller="Web" asp-action="Equipments">Equipments</a></li>
+                            <li><a asp-controller="Web" asp-action="Plans">Plans</a></li>
+                        </ul>
+                    </li>                    
+                    <li><a asp-controller="Web" asp-action="ContactUs">Contact Us</a></li>
+
+                    <li>
+                        <a asp-controller="Web" asp-action="Cart">
+                            <i class="bx bx-cart"></i>
+
+                            @if (cartEquipment != null && cartPlan != null)
+                            {
+                                var count = cartEquipment.Count + cartPlan.Count;
+
+                                if (count > 0)
+                                {
+                                    <span>@count</span>
+                                }
+                            }
+                            else if (cartEquipment != null)
+                            {
+                                if (cartEquipment.Count > 0)
+                                {
+                                    <span>@cartEquipment.Count</span>
+                                }
+                            }
+                            else if (cartPlan != null)
+                            {
+                                if (cartPlan.Count > 0)
+                                {
+                                    <span>@cartPlan.Count</span>
+                                }
+                            }
+                        </a>                        
+                    </li>
+
+                    @if (role != null)
+                    {
+                        <li class="dropdown show">
+                            <a class="dropdown-toggle text-info" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Welcome, @Context.Session.GetString("accId")
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <a asp-controller="Web" asp-action="Profile" asp-route-id="@Context.Session.GetString("accId")" class="dropdown-item text-secondary">View Details</a>
+
+                                @if (role != "Customer")
+                                {
+                                    @if (role == "Admin")
+                                    {
+                                        <a class="dropdown-item text-secondary" asp-controller="Accounts" asp-action="Index">Dashboard</a>
+                                    }
+
+                                    @if (role == "SalesPerson" || role == "Accountant" || role == "Technician")
+                                    {
+                                        <a class="dropdown-item text-secondary" asp-controller="Orders" asp-action="Index">Dashboard</a>
+                                    }
+                                }
+
+                                <a asp-controller="Web" asp-action="Logout" class="dropdown-item text-secondary">Logout</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Web" asp-action="Login">Login</a></li>
+                    }
+                </ul>
+            </nav><!-- .nav-menu -->
+
+        </div>
+    </header><!-- End Header -->
+    <!-- Body Content -->
+    @RenderBody()
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Telecommunications</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Internet Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Supply of Network Equipments</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h4>Contact Us</h4>
+                        <p>
+                            150 Park Row, New York, NY 10007, USA<br><br>
+                            <strong>Phone:</strong> +1 5599 55899 55<br>
+                            <strong>Email:</strong> contact@nexus.com<br>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-info">
+                        <h3>About Nexus Service</h3>
+                        <p>We are one of the major local providers of tele-communications and internet services.</p><br>
+                        <p>Fast, convenient and enthusiastic are our working motto.</p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Nexus Service</span></strong>. All Rights Reserved
+            </div>
+        </div>
+
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/assets/vendor/counterup/counterup.min.js"></script>
+    <script src="~/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/assets/js/web/main.js"></script>
+
+</body>
+
+</html>

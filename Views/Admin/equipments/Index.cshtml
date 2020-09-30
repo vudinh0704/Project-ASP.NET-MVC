@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.equipments>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Index</h1>
+
+<h4>Equipments</h4>
+
+<hr />
+
+<p>
+    <a asp-controller="Equipments" asp-action="Create"><i class="material-icons" style="padding-right: 10px">playlist_add</i>Create New</a>
+</p>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    <input type="text" name="txtEquipmentName" placeholder="Enter equipment name..." />
+    <input type="submit" name="btnSearch" value="Search" class="btn-outline-info" />
+}
+
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment_image_thumbnail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment_type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment_price)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipment_name)
+                </td>
+                <td>
+                    <img src="~/assets/img/products/@item.Equipment_image_thumbnail" width="100" height="75" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipment_type)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Equipment_price)
+                </td>
+                <td>
+                    <a asp-controller="Equipments" asp-action="Details" asp-route-id="@item.Equipment_id"><button class="btn-outline-info">Details</button></a>
+                    <a asp-controller="Equipments" asp-action="Update" asp-route-id="@item.Equipment_id"><button class="btn-outline-primary">Edit</button></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <h3 class="text-light">@ViewBag.Msg</h3>
+</div>

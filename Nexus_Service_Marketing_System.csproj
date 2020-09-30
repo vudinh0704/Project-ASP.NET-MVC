@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Admin\connections\" />
+    <Folder Include="Views\Admin\bills\" />
+    <Folder Include="Views\Admin\vendors\" />
+    <Folder Include="Views\Admin\retailShowrooms\" />
+    <Folder Include="Views\Admin\plans\" />
+    <Folder Include="Views\Admin\orders\" />
+  </ItemGroup>
+
+</Project>

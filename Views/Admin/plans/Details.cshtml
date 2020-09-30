@@ -1,0 +1,76 @@
+﻿@model Nexus_Service_Marketing_System.Models.plans
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Plans</h4>
+
+    <hr />
+
+    <dl class="row text-light">
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Plan_name)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Plan_name)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Plan_connection_name)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Plan_connection_name)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Plan_description)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Plan_description)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Plan_fixed_price)
+        </dt>
+        <dd class="col-sm-7">
+            $@Html.DisplayFor(model => model.Plan_fixed_price)
+        </dd>
+
+        @if (Model.Plan_local_price > 0)
+        {
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Plan_local_price)
+            </dt>
+            <dd class="col-sm-7">
+                $@Html.DisplayFor(model => model.Plan_local_price)/min
+            </dd>
+        }
+
+        @if (Model.Plan_std_price > 0)
+        {
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Plan_std_price)
+            </dt>
+            <dd class="col-sm-7">
+                $@Html.DisplayFor(model => model.Plan_std_price)/min
+            </dd>
+        }
+
+        @if (Model.Plan_messaging_for_mobiles_price > 0)
+        {
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Plan_messaging_for_mobiles_price)
+            </dt>
+            <dd class="col-sm-7">
+                $@Html.DisplayFor(model => model.Plan_messaging_for_mobiles_price)/min
+            </dd>
+        }
+    </dl>
+</div>
+
+<div>    
+    <a asp-controller="Plans" asp-action="Update" asp-route-id="@Model.Plan_id"><button class="btn-outline-primary">Edit</button></a>   
+    <a asp-controller="Plans" asp-action="Index"><button class="btn-outline-light">Back to List</button></a>
+</div>

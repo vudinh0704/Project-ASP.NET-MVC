@@ -1,0 +1,228 @@
+﻿@model IEnumerable<Nexus_Service_Marketing_System.Models.bills>
+
+@{
+    ViewData["Title"] = "Bill Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <main id="main">
+
+        <!-- ======= Our Bills Section ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Order Details</h2>
+                    <ol>
+                        <li><a asp-controller="Web" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Web" asp-action="Services">Services</a></li>
+                        <li><a asp-controller="Web" asp-action="Bills">Bills</a></li>
+                        <li>Bill Details</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section><!-- End Our Bills Section -->
+
+        <!-- ======= Bill Details Section ======= -->
+        <section class="bill-details">
+            <div class="container">
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+
+                            @if (ViewBag.Plans.Count > 0)
+                            {
+                                <th>Plans Security Deposit</th>
+                            }
+
+                            <th>Product Price</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (ViewBag.Equipments != null)
+                        {
+                            @foreach (var item in ViewBag.Equipments)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Equipments_orders_equipment_name
+                                    </td>
+
+                                    @if (ViewBag.Plans.Count > 0)
+                                    {
+                                        <td>
+                                            <i class='bx bx-info-square bx-burst-hover'></i>
+                                        </td>
+                                    }
+
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", item.Equipments_orders_equipment_price)
+                                    </td>
+                                    <td>
+                                        @item.Equipments_orders_quantity
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", item.Equipments_orders_sub_total)
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
+
+                        @if (ViewBag.Plans != null)
+                        {
+                            @foreach (var item in ViewBag.Plans)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Plans_orders_plan_name
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", item.Plans_orders_plan_security_deposit)
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", item.Plans_orders_plan_price)
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", item.Plans_orders_plan_price)
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        @if (ViewBag.Track != null)
+                        {
+                            @if (ViewBag.Track.Track_time_used_local > 0)
+                            {
+                                <tr>
+                                    <td>
+                                        Local
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.Track.Track_plan_price_local)
+                                    </td>
+                                    <td>
+                                        @ViewBag.Track.Track_time_used_local
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.Track.Track_plan_price_sub_total_local)
+                                    </td>
+                                </tr>
+                            }
+
+                            @if (ViewBag.Track.Track_time_used_std > 0)
+                            {
+                                <tr>
+                                    <td>
+                                        Standard
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.Track.Track_plan_price_std)
+                                    </td>
+                                    <td>
+                                        @ViewBag.Track.Track_time_used_std
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.Track.Track_plan_price_sub_total_std)
+                                    </td>
+                                </tr>
+                            }
+
+                            @if (ViewBag.Track.Track_time_used_msg > 0)
+                            {
+                                <tr>
+                                    <td>
+                                        Messaging for Mobiles
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.Track.Track_plan_price_msg)
+                                    </td>
+                                    <td>
+                                        @ViewBag.Track.Track_time_used_msg
+                                    </td>
+                                    <td>
+                                        $@string.Format("{0:#,0.00}", ViewBag.Track.Track_plan_price_sub_total_msg)
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        <tr>
+                            @if (ViewBag.Plans.Count > 0)
+                            {
+                                <td colspan="3">Sub Total</td>
+                            }
+                            else
+                            {
+                                <td colspan="2">Sub Total</td>
+                            }
+
+                            <td>@ViewBag.Count</td>
+                            <td>$@string.Format("{0:#,0.00}", ViewBag.SubTotal)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            @if (ViewBag.Plans.Count > 0)
+                            {
+                                <td colspan="3">VAT</td>
+                            }
+                            else
+                            {
+                                <td colspan="2">VAT</td>
+                            }
+
+                            <td>12.24%</td>
+                            <td>$@string.Format("{0:#,0.00}", ViewBag.VAT)</td>
+                        </tr>
+
+                        <tr>
+                            @if (ViewBag.Plans.Count > 0)
+                            {
+                                <td colspan="3">Discount</td>
+                            }
+                            else
+                            {
+                                <td colspan="2">Discount</td>
+                            }
+
+                            <td>@ViewBag.Rate</td>
+                            <td>$@string.Format("{0:#,0.00}", ViewBag.Discount)</td>
+                        </tr>
+
+                        @if (ViewBag.Plans.Count > 0)
+                        {
+                            <tr>
+                                <td colspan="3">Security Deposit</td>
+                                <td>@ViewBag.Plans.Count</td>
+                                <td>$@string.Format("{0:#,0.00}", ViewBag.Deposit)</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            @if (ViewBag.Plans.Count > 0)
+                            {
+                                <td colspan="4"><h3 class="text-danger">Total</h3></td>
+                            }
+                            else
+                            {
+                                <td colspan="3"><h3 class="text-danger">Total</h3></td>
+                            }
+
+                            <td><h3 class="text-danger">$@string.Format("{0:#,0.00}", ViewBag.Total)</h3></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </section><!-- End Bill Details Section -->
+
+    </main><!-- End #main -->

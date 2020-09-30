@@ -1,0 +1,72 @@
+﻿@model Nexus_Service_Marketing_System.Models.connections
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h1>Update</h1>
+
+<h4>Connections</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-6">
+        <form asp-controller="Connections" asp-action="Update">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Connection_id" class="form-control" value="@Model.Connection_id" hidden="hidden" />
+
+            <table class="table">
+                <tr>
+                    <td><label type="text" asp-for="Connection_name" class="control-label"></label></td>
+                    <td><input asp-for="Connection_name" class="form-control" /></td>
+                    <td><span asp-validation-for="Connection_name" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Connection_description" class="control-label"></label></td>
+                    <td><input asp-for="Connection_description" class="form-control" /></td>
+                    <td><span asp-validation-for="Connection_description" class="text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Connection_image_thumbnail" class="control-label"></label></td>
+                    <td><input type="file" asp-for="Connection_image_thumbnail" class="form-control" required /></td>
+                    <td><span asp-validation-for="Connection_image_thumbnail" class="text-danger"></span></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <input type="button" data-toggle="modal" data-target="#modalConfirm" value="Save" class="btn btn-primary" />
+
+            <!-- Modal -->
+            <div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to update this connection's information?</div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info mr-2">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Modal -->
+
+        </form>
+
+        <div>
+            <a asp-controller="Connections" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<h3 class="text-light">@ViewBag.Msg</h3>
