@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Database\" />
     <Folder Include="Views\Admin\connections\" />
     <Folder Include="Views\Admin\bills\" />
     <Folder Include="Views\Admin\vendors\" />
